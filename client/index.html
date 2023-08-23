@@ -1,13 +1,62 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+	<head>
+		<meta charset="UTF-8" />
+		<!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Vite + React + TS</title>
+	</head>
+	<body>
+		<div id="root"></div>
+		<!-- Form to handle single file download request-->
+		<input type="file" value="качай" id="file" />
+		<button type="click" id="form">Send</button>
+		<script>
+			const form = document.getElementById("form");
+
+			form.addEventListener("click", exec);
+
+			function exec(e) {
+				e.preventDefault();
+				const files = document.getElementById("file");
+				const formData = new FormData();
+				formData.append("file", files.files[0]);
+
+				fetch("http://localhost:8080/api/user/update/avatar", {
+					method: "PATCH",
+					body: formData,
+					credentials: "include",
+					headers: {},
+				})
+					.then((res) => {
+						e.preventDefault();
+						console.log(res);
+					})
+					.catch((err) => ("Error occured", err));
+			}
+
+			function a() {
+				var myHeaders = new Headers();
+
+				myHeaders.append("Content-Type", "application/json");
+				myHeaders.append("Accept", "application/json");
+
+				fetch("http://localhost:8080/api/user/login", {
+					method: "POST",
+					headers: myHeaders,
+					credentials: "include",
+					body: JSON.stringify({
+						name: "test",
+						password: "Test01",
+					}),
+					redirect: "follow",
+				})
+					.then((response) => response.json())
+					.then((result) => console.log(result))
+					.catch((error) => console.log("error", error));
+			}
+			a();
+		</script>
+		<!-- <script type="module" src="/src/main.tsx"></script> -->
+	</body>
 </html>
