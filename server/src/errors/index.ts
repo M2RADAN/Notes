@@ -15,7 +15,7 @@ export function errorHandler(err: TError | CelebrateError, req: Request, res: Re
 		});
 	}
 
-	console.log(err.statusCode);
+	console.log(err);
 
 	const { statusCode = 500, message } = err;
 	res.status(statusCode).send({

@@ -10,7 +10,6 @@ export async function createNoteController(req: Request, res: Response, next: Ne
 		isComplited: false,
 		isFeatured: false,
 		creator: req.user.name,
-		createdAt: new Date(),
 		isPublic,
 	}).catch(next);
 
@@ -27,7 +26,6 @@ export async function createNoteController(req: Request, res: Response, next: Ne
 			isComplited: false,
 			isFeatured: false,
 			creator: req.user.name,
-			createdAt: new Date(),
 			isPublic,
 		},
 	});

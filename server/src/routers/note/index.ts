@@ -2,9 +2,8 @@ import { Joi, celebrate } from "celebrate";
 import { createNoteController } from "../../controller/notes/createNote";
 import { withAuth } from "../../middleware/user/withAuth";
 import { Router } from "express";
-import { updateNoteController } from "../../controller/notes/updateNote";
+
 import { getNoteController } from "../../controller/notes/getNote";
-import { removeNoteController } from "../../controller/notes/removeNote";
 import { getPublicNoteController } from "../../controller/notes/getPublicNote";
 import { getUserNotesController } from "../../controller/notes/getUserNotes";
 
@@ -23,17 +22,6 @@ noteRouter.post(
 	createNoteController
 );
 noteRouter.delete("/removeNote", withAuth, createNoteController);
-
-noteRouter.patch(
-	"/updateNote",
-	celebrate({
-		body: Joi.object().keys({
-			_id: Joi.string().required(),
-		}),
-	}),
-	withAuth,
-	updateNoteController
-);
 
 noteRouter.get("/getNote/:id", withAuth, getNoteController);
 

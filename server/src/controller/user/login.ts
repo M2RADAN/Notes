@@ -16,11 +16,13 @@ export async function userLoginController(req: Request, res: Response, next: Nex
 	user.tokenIDs = [...user.tokenIDs, tokenID];
 	await user.save().catch(next);
 
+	console.log("set");
+	console.log(req.cookies["asdasd"]);
 	res.cookie("jwt", jwt.sign({ userID: user._id, tokenID }, secret, { expiresIn: "24d" }), {
 		httpOnly: true,
-		secure: true,
+		signed: true,
 		sameSite: true,
-		expires: new Date(Date.now() + 24 * 24 * 60 * 60 * 1000),
 	});
-	res.status(200).send(RESPONSE.SUCCESS);
+
+	res.status(200).json(RESPONSE.SUCCESS);
 }

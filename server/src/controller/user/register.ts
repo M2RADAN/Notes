@@ -25,7 +25,6 @@ export async function userRegiserController(req: Request, res: Response, next: N
 			name,
 			password: hash,
 			notes: [],
-			createdAt: new Date(),
 			tokenIDs: [tokenID],
 		}).catch(next);
 

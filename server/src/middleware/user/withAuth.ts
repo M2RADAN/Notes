@@ -10,7 +10,7 @@ declare global {
 	}
 }
 
-export async function withAuth(req: Request, _res: Response, next: NextFunction) {
+export async function withAuth(req: Request, res: Response, next: NextFunction) {
 	const user = await User.findUserByJwt(req.cookies.jwt).catch(next);
 	if (!user) return;
 
